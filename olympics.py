@@ -117,7 +117,7 @@ def output_country_results(filename, host_dict, country):
                 for i in range(num_appearances):
                     appearance = medal_appearances[i]
                     year, gold, silver, bronze, total = appearance
-                    file.write(f"{year:<5} | {gold:<4} | {silver:<6} | {bronze:<6} | {total<5}")
+                    file.write(f"{year:<5} | {gold:<4} | {silver:<6} | {bronze:<6} | {total:<5}")
 
                     if i < num_appearances - 1:
                         file.write("\n")
