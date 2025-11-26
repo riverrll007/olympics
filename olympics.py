@@ -99,25 +99,25 @@ def output_country_results(filename, host_dict, country):
             if not hosted_games:
                 file.write("No Olympics hosted in this country.\n")
             else:
-                file.write("Olympics hosted in this country.\n")
-                file.write(f"{'Year':<5} | {'Type':<6} | {'City'}\n")
+                file.write("Olympics hosted in this country:\n")
+                file.write(f"{'Year':<5}   {'Type':<6}   {'City'}\n")
 
                 for entry in hosted_games:
                     year, season, city = entry
-                    file.write(f"{year:<5} | {season:<6} | {city.strip()}\n")
+                    file.write(f"{year:<5}   {season:<6}   {city.strip()}\n")
             file.write("\n")
 
             if not medal_appearances:
                 file.write("No Olympic appearances by this country.\n")
             else:
-                file.write("Olympic appearances by this country.\n")
-                file.write(f"{'Year':<5} | {'Gold':<4} | {'Silver':<6} | {'Bronze':<6} | {'Total'}\n")
+                file.write("Olympic appearances by this country:\n")
+                file.write(f"{'Year':<5}   {'Gold':<4}   {'Silver':<6}   {'Bronze':<6}   {'Total'}\n")
 
                 num_appearances = len(medal_appearances)
                 for i in range(num_appearances):
                     appearance = medal_appearances[i]
                     year, gold, silver, bronze, total = appearance
-                    file.write(f"{year:<5} | {gold:<4} | {silver:<6} | {bronze:<6} | {total:<5}")
+                    file.write(f"{year:<5}   {gold:<4}   {silver:<6}   {bronze:<6}   {total:<5}")
 
                     if i < num_appearances - 1:
                         file.write("\n")
