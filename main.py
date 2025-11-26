@@ -2,7 +2,7 @@ from olympics import*
 
 def parse_command(text, host_dict):
 
-    parts = text.split()
+    parts = text.split(maxsplit=2)
 
     if len(parts) != 3:
         raise ValueError("Incorrect command parameters")
