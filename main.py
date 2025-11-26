@@ -20,7 +20,7 @@ def parse_command(text, host_dict):
     if command_type == "country":
 
         if not (command_parameter.startswith("'") and command_parameter.endswith("'")):
-            raise ValueError("Invalid command parameters")
+            raise ValueError("Incorrect command parameters")
 
         country = command_parameter.strip("'")
 
@@ -53,7 +53,7 @@ def command_system():
 
 
     while True:
-        command = input("Enter a command or 'quit' to exit: ").strip()
+        command = input("Enter a valid command or 'quit' to end the program: ").strip()
 
         if command.lower() == "quit":
             break
