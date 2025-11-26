@@ -3,11 +3,12 @@ from olympics import*
 def parse_command(text, host_dict):
 
     parts = text.split()
+
     if len(parts) != 3:
         raise ValueError("Incorrect command parameters")
 
     command_type = parts[0].strip().lower()
-    paramater = parts[1].strip()
+    command_paramater = parts[1].strip()
     filename = parts[2].strip()
 
     if command_type not in ("country", "year"):
@@ -17,18 +18,22 @@ def parse_command(text, host_dict):
         raise ValueError("Invalid filename")
 
     if command_type == "country":
-        country = paramater.strip("'")
+
+        if not (command_paramater.startswith("'") and command_paramater.endswith("'")):
+            raise ValueError("Invalid command parameters")
+
+        country = command_paramater.strip("'")
 
         output_country_results(filename, host_dict, country)
         print(f"Results for country '{country}' written to {filename}")
 
     elif command_type == "year":
         try:
-            year = int(paramater)
+            year = int(command_paramater)
         except ValueError:
             raise ValueError("Incorrect command parameters")
 
-        output_year_results(filename, host_dict, str(year))
+        output_year_results(filename, host_dict, year)
         print(f"Results for year {year} written to {filename}")
 
 
@@ -38,8 +43,6 @@ def command_system():
 
     while host_dict is None:
         host_filename = input("Enter the host data filename: ").strip()
-
-
 
         try:
             host_dict = load_hosts(host_filename)
@@ -56,7 +59,6 @@ def command_system():
         command = input("Enter a command or 'quit' to exit: ").strip()
 
         if command.lower() == "quit":
-            print("Exiting program.")
             break
 
         if not command:
