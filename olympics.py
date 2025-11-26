@@ -104,7 +104,7 @@ def output_country_results(filename, host_dict, country):
 
                 for entry in hosted_games:
                     year, season, city = entry
-                    file.write(f"{year:<5} | {season:<6} | {city}\n")
+                    file.write(f"{year:<5} | {season:<6} | {city.strip()}\n")
             file.write("\n")
 
             if not medal_appearances:
@@ -121,6 +121,8 @@ def output_country_results(filename, host_dict, country):
 
                     if i < num_appearances - 1:
                         file.write("\n")
+
+                file.write("\n")
     except Exception as e:
         print(f"Error writing country results to file {filename}: {e}")
 
