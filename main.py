@@ -53,7 +53,7 @@ def command_system():
 
 
     while True:
-        command = input("Enter a valid command or 'quit' to end the program: ").strip()
+        command = input("Enter a command or 'quit' to exit: ").strip()
 
         if command.lower() == "quit":
             break
