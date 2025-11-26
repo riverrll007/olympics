@@ -8,7 +8,7 @@ def parse_command(text, host_dict):
         raise ValueError("Incorrect command parameters")
 
     command_type = parts[0].strip().lower()
-    command_paramater = parts[1].strip()
+    command_parameter = parts[1].strip()
     filename = parts[2].strip()
 
     if command_type not in ("country", "year"):
@@ -19,23 +19,20 @@ def parse_command(text, host_dict):
 
     if command_type == "country":
 
-        if not (command_paramater.startswith("'") and command_paramater.endswith("'")):
+        if not (command_parameter.startswith("'") and command_parameter.endswith("'")):
             raise ValueError("Invalid command parameters")
 
-        country = command_paramater.strip("'")
+        country = command_parameter.strip("'")
 
         output_country_results(filename, host_dict, country)
-        print(f"Results for country '{country}' written to {filename}")
 
     elif command_type == "year":
         try:
-            year = int(command_paramater)
+            year = int(command_parameter)
         except ValueError:
             raise ValueError("Incorrect command parameters")
 
         output_year_results(filename, host_dict, year)
-        print(f"Results for year {year} written to {filename}")
-
 
 def command_system():
 
@@ -56,7 +53,7 @@ def command_system():
 
 
     while True:
-        command = input("Enter a command or 'quit' to exit: ").strip()
+        command = input("Enter a valid command or 'quit' to end the program: ").strip()
 
         if command.lower() == "quit":
             break
@@ -68,6 +65,6 @@ def command_system():
             parse_command(command, host_dict)
 
         except ValueError as e:
-            print(f"Error: {e}")
+            print(e)
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
