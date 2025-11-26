@@ -20,6 +20,8 @@ def load_hosts(filename):
 
     except FileNotFoundError:
         raise
+    if not host_dict:
+        raise ValueError("Invalid host file format.")
     return host_dict
 
 def load_medals(filename):
@@ -49,7 +51,8 @@ def load_medals(filename):
                          total_medals = int(parts[4].strip())
                      except ValueError:
                          total_medals = gold + silver + bronze
-
+                 else:
+                     total_medals = gold + silver + bronze
                  medals_dict[country] = [gold, silver, bronze, total_medals]
      except FileNotFoundError:
          raise
@@ -77,10 +80,13 @@ def output_country_results(filename, host_dict, country):
 
         if host_country.lower() == country.lower():
             hosted_games.append([year, host_season, host_city])
-    hosted_games.sort()
+    hosted_games.sort(key=lambda x: x[0])
 
     medal_appearances = []
-    for year in sorted(hosted_games):
+
+    all_years = sorted(host_dict.keys())
+
+    for year in all_years:
         medals_data = try_load_medals(year)
         if medals_data and country in medals_data:
             medals = medals_data[country]
@@ -113,7 +119,7 @@ def output_country_results(filename, host_dict, country):
                     year, gold, silver, bronze, total = appearance
                     file.write(f"{year:<5} | {gold:<4} | {silver:<6} | {bronze:<6} | {total}")
 
-                    if i < (num_appearances - 1):
+                    if i < num_appearances - 1:
                         file.write("\n")
     except Exception as e:
         print(f"Error writing country results to file {filename}: {e}")
@@ -121,18 +127,19 @@ def output_country_results(filename, host_dict, country):
 def output_year_results(filename, host_dict, year):
 
     year_str = str(year)
+    year_int = int(year)
 
-    host_info = host_dict.get(year)
-    medals_data = try_load_medals(year)
+    host_info = host_dict.get(year_int)
+    medals_data = try_load_medals(year_int)
 
     try:
         with open(filename, "w") as file:
             if host_info is None:
-                file.write(f"No Olympics were held in {year_str}.\n")
+                file.write(f"No Olympics were held in {year_str}")
                 return
 
             city, country, season = host_info
-            file.write(f"Year: {year}\n")
+            file.write(f"Year: {year_str}\n")
             file.write(f"Host: {city}, {country}\n")
             file.write(f"Type: {season}\n")
             file.write("\n")
@@ -153,7 +160,7 @@ def output_year_results(filename, host_dict, year):
                 max_countries = []
 
                 for country_name in medals_data:
-                    medals = medals.data[country_name]
+                    medals = medals_data[country_name]
                     count = medals[index]
                     if count > max_count:
                         max_count = count
