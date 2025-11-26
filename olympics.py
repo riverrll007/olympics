@@ -104,11 +104,11 @@ def output_country_results(filename, host_dict, country):
 
                 for entry in hosted_games:
                     year, season, city = entry
-                    file.write(f"{year:<5}|{season:<6}|{city}\n")
+                    file.write(f"{year:<5} | {season:<6} | {city}\n")
             file.write("\n")
 
             if not medal_appearances:
-                file.write("No Olympic appearances by this country.")
+                file.write("No Olympic appearances by this country.\n")
             else:
                 file.write("Olympic appearances by this country.\n")
                 file.write(f"{'Year':<5} | {'Gold':<4} | {'Silver':<6} | {'Bronze':<6} | {'Total'}\n")
@@ -117,7 +117,7 @@ def output_country_results(filename, host_dict, country):
                 for i in range(num_appearances):
                     appearance = medal_appearances[i]
                     year, gold, silver, bronze, total = appearance
-                    file.write(f"{year:<5} | {gold:<4} | {silver:<6} | {bronze:<6} | {total}")
+                    file.write(f"{year:<5} | {gold:<4} | {silver:<6} | {bronze:<6} | {total<5}")
 
                     if i < num_appearances - 1:
                         file.write("\n")
