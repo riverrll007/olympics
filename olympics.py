@@ -69,30 +69,30 @@ def try_load_medals(year):
         return None
 
 def output_country_results(filename, host_dict, country):
-    hosted_games = []
-
-    for year in host_dict:
-        data = host_dict[year]
-
-        host_country = data[1]
-        host_season = data[2]
-        host_city = data[0]
-
-        if host_country.lower() == country.lower():
-            hosted_games.append([year, host_season, host_city])
-    hosted_games.sort(key=lambda x: x[0])
-
-    medal_appearances = []
-
-    all_years = sorted(host_dict.keys())
-
-    for year in all_years:
-        medals_data = try_load_medals(year)
-        if medals_data and country in medals_data:
-            medals = medals_data[country]
-            medal_appearances.append((year, medals[0], medals[1], medals[2], medals[3]))
-
     try:
+        hosted_games = []
+
+        for year in host_dict:
+            data = host_dict[year]
+
+            host_country = data[1]
+            host_season = data[2]
+            host_city = data[0]
+
+            if host_country.lower() == country.lower():
+                hosted_games.append([year, host_season, host_city])
+        hosted_games.sort(key=lambda x: x[0])
+
+        medal_appearances = []
+
+        all_years = sorted(host_dict.keys())
+
+        for year in all_years:
+            medals_data = try_load_medals(year)
+            if medals_data and country in medals_data:
+                medals = medals_data[country]
+                medal_appearances.append((year, medals[0], medals[1], medals[2], medals[3]))
+
         with open(filename, "w") as file:
             file.write(f"{country}\n")
             file.write("\n")
