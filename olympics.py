@@ -4,7 +4,7 @@ def load_hosts(filename):
         with open(filename, "r") as file:
             for line in file:
                 parts = line.strip().split(',')
-                if len(parts) != 4:
+                if len(parts) >= 4:
                     continue
                 year_str = parts[0].strip()
                 city = parts[1].strip()
