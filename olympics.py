@@ -122,8 +122,6 @@ def output_country_results(filename, host_dict, country):
                 if i < num_appearances - 1:
                     file.write("\n")
 
-            file.write("\n")
-
 
 def output_year_results(filename, host_dict, year):
 
