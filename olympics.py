@@ -20,8 +20,7 @@ def load_hosts(filename):
 
     except FileNotFoundError:
         raise
-    if not host_dict:
-        raise ValueError("Invalid host file format.")
+
     return host_dict
 
 def load_medals(filename):
