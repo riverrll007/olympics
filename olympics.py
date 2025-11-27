@@ -13,8 +13,8 @@ def load_hosts(filename):
                 try:
                     year = int(year_str)
                 except ValueError:
-                    raise ValueError('Invalid host file format.')
-
+                    continue
+                    
                 if year >= 2000:
                     host_dict[year] = [city, country, season]
 
@@ -44,8 +44,7 @@ def load_medals(filename):
                      silver = int(parts[2].strip())
                      bronze = int(parts[3].strip())
                  except ValueError:
-                     raise ValueError('Medal count is not an integer.')
-
+                     continue
                  if len(parts) == 5:
                      try:
                          total_medals = int(parts[4].strip())
